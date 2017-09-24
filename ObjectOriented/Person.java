@@ -152,6 +152,7 @@ public class Person {
 				}
 				jsonArray.remove(key);
 				jsonArray.add(jsonObject);
+				
 				fileWriter=new FileWriter(file);
 				fileWriter.write(JSONValue.toJSONString(jsonArray));
 				fileWriter.flush();
@@ -179,10 +180,10 @@ public class Person {
 			JSONArray jsonArray=(JSONArray) parser.parse(fileReader);
 			Iterator iterator=jsonArray.iterator();
 			
-			while(iterator.hasNext()) {
+            while(iterator.hasNext()) {
 				
-				int key=(int) iterator.next();
-				JSONObject jsonObject= (JSONObject) jsonArray.get(key);
+				JSONObject jsonObject= (JSONObject) iterator.next();
+				
 				if(jsonObject.get("FirstName").equals(userEntry)) {
 					jsonArray.remove(0);
 					//	jsonArray.add(jsonObject);
@@ -202,7 +203,6 @@ public class Person {
 	}
 
 	public void sortDetails() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -216,9 +216,12 @@ public class Person {
 			
 			while(iterator.hasNext()) {
 				
-	        int key=(int) iterator.next();
-			JSONObject jsonObject= (JSONObject) jsonArray.get(key);
-			Iterator iterator1= jsonObject.iterator();
+				JSONObject jsonObject= (JSONObject) iterator.next();
+			    Iterator iterator1=  jsonObject.keySet().iterator();
+			    while(iterator1.hasNext()) {
+			    	String jsonKey=(String) iterator1.next();
+			    	System.out.println(jsonKey+" :" +jsonObject.get(jsonKey));
+			    }
 			}
 		} catch ( IOException | ParseException e) {
 			// TODO Auto-generated catch block
